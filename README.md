@@ -4,13 +4,13 @@ A Blockchain-enabled Edge AI System for Real-time DDoS Detection in IIoT.
 ## Overview
 
 Fabric-SmartDefender is designed to enhance the security of IoT networks by:
-- Managing IoT devices and their trust scores using Hyperledger Fabric.
+- Managing IoT devices using Hyperledger Fabric.
 - Detecting and mitigating DDoS attacks in real-time using machine learning.
-- Providing a user-friendly interface for device registration, trust score updates, and monitoring.
+- Use 20 devices for ML algorithm predictions for testing the HyperLedger fabric network and chaincode.
 
 ## Features
 
-- **Blockchain Integration**: Uses Hyperledger Fabric to securely manage IoT device trust scores.
+- **Blockchain Integration**: Uses Hyperledger Fabric to securely manage IoT device.
 - **Machine Learning**: Employs an LSTM model to predict DDoS attacks based on network traffic data.
 
 ## Prerequisites
@@ -37,7 +37,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 wsl --set-default-version 2
 ```
 
-- Verify Installation
+- 🧪 Verify Installation
 
 ```bash
 wsl --list --verbose
@@ -87,7 +87,7 @@ npm -v
 
 ## Colab Execution
 
-Step-by-Step: Create Kaggle API Key
+✅ Step-by-Step: Create Kaggle API Key
 
 1. Log into Kaggle: Go to https://www.kaggle.com and log in to your account.
 2. Go to your account settings: Click on your profile icon (top right corner) → Select "Account".
@@ -125,13 +125,14 @@ Follow the steps mentioned in (Fabric Setup)[fabric_setup.md]
 
 The full chaincode definition is available in the (chaincode)[chaincode/mitigation.go].
 
-1. **InitLedger**: This function will initialize to adds 20 predefined IIOT devices to the ledger.
-2. **RegisterDevice**: This function will be used to register a new IIOT device in the network.
-3. **DeviceExists**: This function will be used to check whether device exist or not in the network. Input argument is Composite Key `(ActiveDevice|BlockedDevice)<IP>`.
-4. **QueryActiveDevices**: This function will be used to retrieve all active devices at that point in time.
-5. **QueryBlockedDevices**: This function will be used to retrieve all blocked devices at that point in time.
-6. **DeleteBlockedDevice**: This function will be used to delete blocked device from the network. Input argument is `ip`.
-7. **BlockDevice**: This function will be used to register a new IIOT device in the network.  Input argument is `ip`.
+1. **createDeviceKey**: This function will generate the composite key for the ledger for performance.
+2. **DeviceExists**: This function will be used to check whether device exist or not in the network. Input argument are `ip` and `state`.
+3. **InitLedger**: This function will initialize to adds 20 predefined active IIOT devices to the ledger.
+4. **RegisterDevice**: This function will be used to register a new active IIOT device in the network.
+4. **QueryDevicesByState**: This function will be used to retrieve the devices at that point in time by state. The accepted values for state are `active`, `blocked` and `deleted`.
+7. **BlockDevice**: This function will be used to block the malicious IIOT device in the network. This will block only devices which are in `active` state. Input argument is `ip`.
+6. **DeleteDevice**: This function will be used to delete the malicious IIOT device from the network. This will delete only devices which are in `blocked` state. Input argument is `ip`.
+
 
 ### Datasets
 
